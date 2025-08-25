@@ -1,15 +1,29 @@
 class Constants {
   //firestore collections
   static const String usersCollection = 'users';
+  static const String documentsCollection = 'documents';
 
   //storage paths
   static const String profileImagesPath = 'profile_images';
   static const String documentsPath = 'documents';
-  static const String documentsCollection = 'documents';
 
   //file extensions
-  static const List<String> imageExtensions = ['jpg', 'jpeg', 'png'];
-  static const List<String> documentExtensions = ['pdf', 'jpg', 'jpeg', 'png'];
+  static const List<String> imageExtensions = [
+    'jpg',
+    'jpeg',
+    'png',
+    'gif',
+    'webp'
+  ];
+  static const List<String> documentExtensions = [
+    'pdf',
+    'jpg',
+    'jpeg',
+    'png',
+    'doc',
+    'docx',
+    'txt'
+  ];
 
   //UI constants
   static const double mobileBreakpoint = 600.0;
@@ -23,6 +37,11 @@ class Constants {
   //border radius
   static const double borderRadius = 12.0;
 
-  //max file size (5MB)
-  static const int maxFileSizeBytes = 5 * 1024 * 1024;
+  //max file size (10MB)
+  static const int maxFileSizeBytes = 10 * 1024 * 1024;
+
+  //image constraints
+  static const int maxImageWidth = 1024;
+  static const int maxImageHeight = 1024;
+  static const int imageQuality = 85;
 }
