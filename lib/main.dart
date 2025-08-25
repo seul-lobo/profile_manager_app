@@ -37,3 +37,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class ProfileProvider {
+}
