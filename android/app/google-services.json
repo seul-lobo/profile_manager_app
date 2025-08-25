@@ -12,7 +12,12 @@
           "package_name": "com.example.profile_manager_app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "708228640848-0ke35phi2luvv2ijrc3fk6fm70oo14gh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBWXRWF2iZFTdhY4jXNa8LFnS3TI712t2M"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708228640848-0ke35phi2luvv2ijrc3fk6fm70oo14gh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "708228640848-ve7ng8je2ua5kalgbr9c4sm9ortk6jh8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.profileManagerApp"
+              }
+            }
+          ]
         }
       }
     }

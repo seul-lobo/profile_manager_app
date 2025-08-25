@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '708228640848',
     projectId: 'profile-manager-app-37d19',
     storageBucket: 'profile-manager-app-37d19.firebasestorage.app',
+    iosClientId: '708228640848-ve7ng8je2ua5kalgbr9c4sm9ortk6jh8.apps.googleusercontent.com',
     iosBundleId: 'com.example.profileManagerApp',
   );
+
 }

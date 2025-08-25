@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             darkTheme: _buildDarkTheme(),
             home: Consumer<AuthProvider>(
               builder: (context, authProvider, _) {
-                // Show loading screen while checking auth state
+                //show loading screen while checking auth state
                 if (authProvider.user == null && authProvider.isLoading) {
                   return const Scaffold(
                     body: Center(
