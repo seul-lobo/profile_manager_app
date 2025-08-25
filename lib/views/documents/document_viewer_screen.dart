@@ -1,4 +1,3 @@
-// views/documents/document_viewer_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../models/document_model.dart';

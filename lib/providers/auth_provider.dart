@@ -8,10 +8,14 @@ class AuthProvider extends ChangeNotifier {
   User? _user;
   bool _isLoading = false;
   String? _error;
+  String? _emailError;
+  String? _passwordError;
 
   User? get user => _user;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  String? get emailError => _emailError;
+  String? get passwordError => _passwordError;
   bool get isAuthenticated => _user != null;
 
   AuthProvider() {
@@ -31,9 +35,24 @@ class AuthProvider extends ChangeNotifier {
     });
   }
 
-  //clear error
+  //clear all errors
   void clearError() {
     _error = null;
+    _emailError = null;
+    _passwordError = null;
+    notifyListeners();
+  }
+
+  //clear specific field error
+  void clearFieldError(String field) {
+    switch (field) {
+      case 'email':
+        _emailError = null;
+        break;
+      case 'password':
+        _passwordError = null;
+        break;
+    }
     notifyListeners();
   }
 
@@ -43,9 +62,23 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //set error
+  //set error with field-specific handling
   void _setError(String error) {
-    _error = error;
+    // Clear previous errors
+    _error = null;
+    _emailError = null;
+    _passwordError = null;
+
+    if (error.startsWith('EMAIL_ERROR:')) {
+      _emailError = error.substring(12);
+    } else if (error.startsWith('PASSWORD_ERROR:')) {
+      _passwordError = error.substring(15);
+    } else if (error.startsWith('GENERAL_ERROR:')) {
+      _error = error.substring(14);
+    } else {
+      _error = error;
+    }
+
     notifyListeners();
   }
 

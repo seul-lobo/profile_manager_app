@@ -58,22 +58,21 @@ class ProfileProvider extends ChangeNotifier {
 
   //load user profile
   Future<void> loadUserProfile(String userId) async {
-    try {
-      clearError();
-      _setLoading(true);
+  try {
+    Future.microtask(() => clearError()); // <--- wrapped safely
+    _setLoading(true);
 
-      final Profile? profile = await _firestoreService.getUserProfile(userId);
-      _profile = profile;
+    final Profile? profile = await _firestoreService.getUserProfile(userId);
+    _profile = profile;
 
-      //load documents
-      await loadUserDocuments(userId);
+    await loadUserDocuments(userId);
 
-      _setLoading(false);
-    } catch (e) {
-      _setLoading(false);
-      _setError(e.toString());
-    }
+    _setLoading(false);
+  } catch (e) {
+    _setLoading(false);
+    _setError(e.toString());
   }
+}
 
   //load user documents
   Future<void> loadUserDocuments(String userId) async {

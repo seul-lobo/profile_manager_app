@@ -77,35 +77,34 @@ class AuthService {
     }
   }
 
-  //handle Firebase Auth exceptions
+  //handle Firebase Auth exceptions with field-specific errors
   String _handleAuthException(FirebaseAuthException e) {
     print('FirebaseAuthException: ${e.code} - ${e.message}');
 
     switch (e.code) {
       case 'user-not-found':
-        return 'No user found with this email address.';
+        return 'EMAIL_ERROR:No account found with this email address.';
       case 'wrong-password':
-        return 'Incorrect password. Please try again.';
-      case 'email-already-in-use':
-        return 'An account already exists with this email address.';
-      case 'weak-password':
-        return 'The password is too weak. Please choose a stronger password.';
-      case 'invalid-email':
-        return 'The email address is not valid.';
-      case 'user-disabled':
-        return 'This user account has been disabled.';
-      case 'too-many-requests':
-        return 'Too many failed attempts. Please try again later.';
-      case 'operation-not-allowed':
-        return 'Email/password accounts are not enabled.';
       case 'invalid-credential':
-        return 'The provided credentials are invalid.';
+        return 'PASSWORD_ERROR:Incorrect password. Please try again.';
+      case 'email-already-in-use':
+        return 'EMAIL_ERROR:An account already exists with this email address.';
+      case 'weak-password':
+        return 'PASSWORD_ERROR:The password is too weak. Please choose a stronger password.';
+      case 'invalid-email':
+        return 'EMAIL_ERROR:Please enter a valid email address.';
+      case 'user-disabled':
+        return 'EMAIL_ERROR:This user account has been disabled.';
+      case 'too-many-requests':
+        return 'GENERAL_ERROR:Too many failed attempts. Please try again later.';
+      case 'operation-not-allowed':
+        return 'GENERAL_ERROR:Email/password accounts are not enabled.';
       case 'network-request-failed':
-        return 'Network error. Please check your internet connection.';
+        return 'GENERAL_ERROR:Network error. Please check your internet connection.';
       case 'configuration-not-found':
-        return 'Firebase configuration error. Please contact support.';
+        return 'GENERAL_ERROR:Firebase configuration error. Please contact support.';
       default:
-        return e.message ?? 'An authentication error occurred.';
+        return 'GENERAL_ERROR:${e.message ?? 'An authentication error occurred.'}';
     }
   }
 }

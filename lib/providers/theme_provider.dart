@@ -1,9 +1,8 @@
-// theme_provider.dart
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.system;
+  ThemeMode _themeMode = ThemeMode.light;
   static const String _themeKey = 'theme_mode';
 
   ThemeMode get themeMode => _themeMode;
@@ -16,10 +15,17 @@ class ThemeProvider extends ChangeNotifier {
     try {
       final prefs = await SharedPreferences.getInstance();
       final themeModeIndex = prefs.getInt(_themeKey) ?? 0;
-      _themeMode = ThemeMode.values[themeModeIndex];
+
+      if (themeModeIndex == 1) {
+        _themeMode = ThemeMode.dark;
+      } else {
+        _themeMode = ThemeMode.light;
+      }
+
       notifyListeners();
     } catch (e) {
       print('Error loading theme mode: $e');
+      _themeMode = ThemeMode.light;
     }
   }
 
@@ -29,7 +35,8 @@ class ThemeProvider extends ChangeNotifier {
 
     try {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setInt(_themeKey, themeMode.index);
+      final index = themeMode == ThemeMode.dark ? 1 : 0;
+      await prefs.setInt(_themeKey, index);
     } catch (e) {
       print('Error saving theme mode: $e');
     }
@@ -43,32 +50,20 @@ class ThemeProvider extends ChangeNotifier {
     return _themeMode == ThemeMode.light;
   }
 
-  bool get isSystemMode {
-    return _themeMode == ThemeMode.system;
-  }
-
+  //simple toggle between light and dark only
   void toggleTheme() {
-    switch (_themeMode) {
-      case ThemeMode.light:
-        setThemeMode(ThemeMode.dark);
-        break;
-      case ThemeMode.dark:
-        setThemeMode(ThemeMode.system);
-        break;
-      case ThemeMode.system:
-        setThemeMode(ThemeMode.light);
-        break;
+    if (_themeMode == ThemeMode.light) {
+      setThemeMode(ThemeMode.dark);
+    } else {
+      setThemeMode(ThemeMode.light);
     }
   }
 
   String get themeModeName {
-    switch (_themeMode) {
-      case ThemeMode.light:
-        return 'Light';
-      case ThemeMode.dark:
-        return 'Dark';
-      case ThemeMode.system:
-        return 'System';
-    }
+    return _themeMode == ThemeMode.dark ? 'Dark' : 'Light';
+  }
+
+  IconData get themeIcon {
+    return _themeMode == ThemeMode.dark ? Icons.light_mode : Icons.dark_mode;
   }
 }

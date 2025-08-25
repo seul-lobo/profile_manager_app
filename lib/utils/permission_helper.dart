@@ -22,21 +22,21 @@ class PermissionHelper {
   static Future<bool> requestGalleryPermission(BuildContext context) async {
     Permission permission;
 
-    // On iOS, use `photos`, on Android use `storage`
     if (Theme.of(context).platform == TargetPlatform.iOS) {
       permission = Permission.photos;
     } else {
-      permission = Permission.storage;
+      // For Android 13+
+      permission = Permission.photos; // or Permission.mediaLibrary
     }
 
     final status = await permission.request();
 
-    if (status.isDenied || status.isPermanentlyDenied || status.isRestricted) {
+    if (status.isDenied || status.isPermanentlyDenied) {
       if (context.mounted) {
         _showPermissionDeniedDialog(
           context,
           'Gallery Permission',
-          'Gallery access is needed to select profile pictures. Please grant permission in settings.',
+          'Gallery access is needed to select and save images. Please grant permission in settings.',
         );
       }
       return false;
