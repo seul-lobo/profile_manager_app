@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'providers/auth_provider.dart';
 import 'providers/profile_provider.dart';
+import 'views/auth/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
             if (authProvider.user != null) {
               // return const ProfileScreen();
             }
-            // return const LoginScreen();
+            return const LoginScreen();
           },
         ),
       ),
